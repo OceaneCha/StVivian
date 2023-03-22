@@ -1,6 +1,6 @@
-<?php 
-
-require_once('__connec.php');
+<?php
+require_once('../__connec.php');
+require_once('../config/twig.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -59,39 +59,43 @@ require_once('__connec.php');
         <div class="container mt-2 row row-cols-1 row-cols-md-3 g-4">
 
             <?php
+            use StVivian\Character;
+            $character = new Character();
+            $table = "`character`";
             $pdo = new \PDO(DSN, USER, PASS);
             if(isset($_GET['team'])) {
                 switch ($_GET['team']) {
                     case 'incr8':
                         $teamID = 1;
-                        $query = "SELECT * FROM characters where team_id=$teamID";
+                        $query = "SELECT * FROM $table where team_id=$teamID";
                         break;
                     case 'viv7':
                         $teamID = 2;
-                        $query = "SELECT * FROM characters where team_id=$teamID";
+                        $query = "SELECT * FROM $table where team_id=$teamID";
                         break;
                     case 'vigilantes':
-                        $query = "SELECT * FROM characters where type_id=4";
+                        $query = "SELECT * FROM $table where type_id=4";
                         break;
                     case 'villains':
-                        $query = "SELECT * FROM characters where type_id=3";
+                        $query = "SELECT * FROM $table where type_id=3";
                         break;
                     default:
-                        $query = "SELECT * FROM characters";
+                        $query = "SELECT * FROM $table";
                 }
             } else {
-                $query = "SELECT * FROM characters";
+                $query = "SELECT * FROM $table";
             }
             $statement = $pdo->query($query);
 
-            $heroes = $statement->fetchAll(PDO::FETCH_OBJ);
+            $heroes = $statement->fetchAll(PDO::FETCH_CLASS, "StVivian\Character");
             
             $civilian = false;
 
             foreach($heroes as $hero){
-                if ($hero->team_id != null) {
+                if ($hero->getTeamId() != null) {
                     $civilian = false;
-                    $query = "SELECT name FROM team WHERE id=$hero->team_id";
+                    $id = $hero->getTeamId();
+                    $query = "SELECT name FROM team WHERE id=$id";
                     $statement = $pdo->query($query);
 
                     $teams = $statement->fetchAll(PDO::FETCH_OBJ);
@@ -100,11 +104,11 @@ require_once('__connec.php');
                 }?>
                 <div class="col">
                     <div class="card border border-dark bg-dark text-white mb-3 h-100">
-                        <img src="<?=$hero->card_path?>" class="card-img-top"
+                        <img src="<?=$hero->getPicture()?>" class="card-img-top"
                             alt="" />
                         <div class="card-body">
-                            <h5 class="card-title"><?=($hero->firstname != null) ? 'AKA '.$hero->firstname.' '.$hero->lastname : $hero->alias?></h5>
-                            <p class="card-text"><?=($hero->biography != null) ? $hero->biography : "Biography not available."?></p>
+                            <h5 class="card-title"><?=($hero->getFirstname() != null) ? 'AKA '.$hero->getFirstname().' '.$hero->getLastname() : $hero->getAlias()?></h5>
+                            <p class="card-text"><?=($hero->getBiography() != null) ? $hero->getBiography() : "Biography not available."?></p>
                         </div>
                         <div class="card-footer text-center">
                             <?php if (!$civilian) {

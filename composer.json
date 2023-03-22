@@ -1,0 +1,19 @@
+{
+    "name": "rory/st-vivian",
+    "description": "StVivian Superheroes",
+    "type": "site",
+    "autoload": {
+        "psr-4": {
+            "StVivian\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "OceaneCha",
+            "email": "oceane.chabrerie.33@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.0"
+    }
+}
