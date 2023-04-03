@@ -1,0 +1,59 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Add a character 
+{% endblock %}
+
+{% block contents %}
+<main class="d-flex justify-content-center">
+    <div class="card border border-dark bg-dark text-white mt-3 h-100 w-50">
+        <div class="card-header">
+            <h4 class="card-title">Add a character</h4>
+        </div>
+        <div class="card-body">
+            <form action="add" method="post">
+                <label for="picture">Picture</label>
+                <input type="file" name="picture" id="picture" class="form-control" />
+                <div class="row row-cols-lg-auto g-3 justify-content-center align-items-center mt-3">
+                    <div class="col-12">
+                        <label class="visually-hidden" for="firstname">Firstname</label>
+                        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Firstname">
+                    </div>
+                    <div class="col-12">
+                        <label class="visually-hidden" for="nickname">Nickname</label>
+                        <input type="text" class="form-control" name="nickname" id="nickname" placeholder="Nickname">
+                    </div>
+                    <div class="col-12">
+                        <label class="visually-hidden" for="lastname">Lastname</label>
+                        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Lastname">
+                    </div>
+                </div>
+                <div class="mt-1">
+                        <label class="visually-hidden" for="alias">Alias</label>
+                        <input type="text" class="form-control" name="alias" id="alias" placeholder="Alias">
+                </div>
+
+                <fieldset>
+                    <legend>Select your character's type:</legend>
+
+                    <div>
+                        <input type="radio" id="hero" name="type" value="hero" checked>
+                        <label for="hero">Hero</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="villain" name="type" value="villain">
+                        <label for="villain">Villain</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="vigilante" name="type" value="vigilante">
+                        <label for="Vigilante">Vigilante</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="civilian" name="type" value="civilian">
+                        <label for="civilian">Civilian</label>
+                    </div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
