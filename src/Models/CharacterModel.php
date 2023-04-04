@@ -39,4 +39,21 @@ class CharacterModel
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_CLASS, "StVivian\Models\Character");
     }
+
+    public function addCharacter(array $character): void
+    {
+        $query = "INSERT INTO `character` (firstname, lastname, nickname, alias, type_id, picture) VALUES (:firstname, :lastname, :nickname, :alias, :type_id, :picture)";
+        $stmt = $this->connection->prepare($query);
+
+        $stmt->bindValue(':type_id', $character['type_id'], \PDO::PARAM_INT);
+
+        $stmt->execute([
+            ':firstname' => $character['firstname'],
+            ':lastname' => $character['lastname'],
+            ':nickname' => $character['nickname'],
+            ':alias' => $character['alias'],
+            ':type_id' => $character['type_id'],
+            ':picture' => $character['picture'],
+        ]);
+    }
 }

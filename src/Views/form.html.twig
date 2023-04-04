@@ -11,7 +11,7 @@
             <h4 class="card-title">Add a character</h4>
         </div>
         <div class="card-body">
-            <form action="add" method="post">
+            <form action="add" method="post" enctype="multipart/form-data">
                 <label for="picture">Picture</label>
                 <input type="file" name="picture" id="picture" class="form-control" />
                 <div class="row row-cols-lg-auto g-3 justify-content-center align-items-center mt-3">
@@ -37,21 +37,24 @@
                     <legend>Select your character's type:</legend>
 
                     <div>
-                        <input type="radio" id="hero" name="type" value="hero" checked>
+                        <input type="radio" id="hero" name="type_id" value="1" checked>
                         <label for="hero">Hero</label>
                     </div>
                     <div>
-                        <input type="radio" id="villain" name="type" value="villain">
+                        <input type="radio" id="villain" name="type_id" value="3">
                         <label for="villain">Villain</label>
                     </div>
                     <div>
-                        <input type="radio" id="vigilante" name="type" value="vigilante">
+                        <input type="radio" id="vigilante" name="type_id" value="4">
                         <label for="Vigilante">Vigilante</label>
                     </div>
                     <div>
-                        <input type="radio" id="civilian" name="type" value="civilian">
+                        <input type="radio" id="civilian" name="type_id" value="2">
                         <label for="civilian">Civilian</label>
                     </div>
+                </fieldset>
+
+                <button class="btn btn-primary" type="submit" id="submit" value="Submit">Submit</button>
             </form>
         </div>
     </div>
